@@ -79,7 +79,7 @@
 
 ## 示例与素材
 
-![AI生成文生视频样例](examples/ai-generated-t2v-preview.jpg)
+https://github.com/user-attachments/assets/a918928a-91ec-4604-ac32-15d8b59472d5
 
 2026年11月10日发布复核的默认文生样例完整耗时17分30秒，实际1344×768、124帧、24 fps并含音轨。[下载AI生成样例视频](examples/ai-generated-t2v-768p.mp4)
 
