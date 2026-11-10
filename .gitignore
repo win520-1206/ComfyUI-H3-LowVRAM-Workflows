@@ -1,0 +1,26 @@
+# Local environments and generated data
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+python/
+models/
+input/
+output/
+logs/
+cache/
+.cache/
+rollback/
+*.safetensors
+*.ckpt
+*.pth
+*.pt
+*.gguf
+*.bin
+*.log
+.env
+.env.*
+*.pem
+*.key
+Thumbs.db
+.DS_Store
