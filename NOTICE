@@ -1,0 +1,14 @@
+ComfyUI-H3-LowVRAM-Workflows
+Copyright (c) 2026 win520-1206
+
+Powered by MiniMax H3
+MiniMax H3 is licensed under the MiniMax H3 Community License Agreement, Copyright © 2026 MiniMax. All Rights Reserved.
+
+The MIT license covers the original workflow arrangement, original example
+prompts and original documentation authored for this repository, to the extent
+the contributor has the right to license them. Third-party models, software,
+license texts and example media retain their own applicable terms.
+
+The public workflows adapt the maintainer's locally validated configuration.
+Changes for publication include public canvas notes, standardized image-upload
+placeholders and KJNodes package metadata. Sampling settings are preserved.
