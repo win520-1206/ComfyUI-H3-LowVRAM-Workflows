@@ -1,105 +1,74 @@
-# MiniMax H3 低显存工作流｜8GB 显存实测
+# MiniMax H3 低显存八步LoRA工作流｜8GB显存实测
 
-[English overview](README.en.md)
+[English overview](README.en.md) · [下载v1.1.0发行包](https://github.com/win520-1206/ComfyUI-H3-LowVRAM-Workflows/releases/tag/v1.1.0)
 
-面向低显存显卡的 MiniMax H3 ComfyUI 工作流，支持文生视频、单首帧、首尾帧和多参考，提供原生 768p 配置及 8GB 显存实测记录。
+适用于ComfyUI的MiniMax H3原生768p八步LoRA工作流，提供文生视频、单首帧、首尾帧、多参考四个入口及有声／无声保存分支。
 
-| 项目 | 已验证配置 |
+| 项目 | 当前配置 |
 |---|---|
-| GPU | NVIDIA RTX 5070 Laptop，8GB 显存 |
-| 系统内存 | 约 32GB，生成时系统总占用峰值约 30GB |
-| 生成规格 | 原生 1344×768，24 fps，124 帧约 5.17 秒 |
-| 采样 | 文生、单首帧、首尾帧采用8步Turbo LoRA、Euler/simple；多参考20步 |
-| 模型 | INT8 主模型、32B NVFP4 AWQ 编码器、INT8 视频 VAE |
-| 低显存处理 | 前馈分块、注意力头分块、采样显存预留控制 |
-| 完整耗时 | 8步文生5.17秒实测8分44秒；历史20步四模式约18–21分钟 |
-
-其他显卡、更小显存或更小系统内存的组合待验证。耗时和资源数据包含本机环境影响，具体结果随内容、硬件和后台程序变化。
-
-![首版20步画布分区预览，当前前三套新增LoRA节点](examples/workflow-overview.png)
+| 实测显卡 | RTX 5070 Laptop，8GB显存 |
+| 系统内存 | 约32GB，八步样例系统已用内存采样峰值约30.2 GiB |
+| 默认输出 | 原生1344×768、124帧、24fps，约5.17秒 |
+| 采样 | 8步、Euler/simple、LoRA强度1、视频／音频shift 6/3 |
+| 文生、单首帧、首尾帧 | FL2VA INT8主模型＋FL2VA Turbo v1.0 768p八步LoRA |
+| 多参考 | Ref2VA INT8主模型＋Ref2VA Turbo v1.1 768p八步LoRA |
+| 编码与解码 | 32B NVFP4 AWQ编码器、INT8视频VAE、FP32音频VAE |
+| 低显存配置 | 前馈分块、注意力头分块、采样显存预留 |
 
 ## 四种生成模式
 
-| 工作流 | 输入 | 使用场景 |
+| 工作流 | 输入 | 用途 |
 |---|---|---|
 | [文生视频](workflows/01_text_to_video.json) | 提示词 | 从文字生成画面与声音 |
-| [单首帧](workflows/02_image_to_video.json) | 一张首帧、提示词 | 从指定画面开始运动 |
-| [首尾帧](workflows/03_first_last_frame.json) | 首帧、尾帧、提示词 | 描述起止画面之间的连续变化 |
-| [多参考](workflows/04_reference_to_video.json) | 人物与环境参考、提示词 | 组合参考特征生成视频 |
-
-每套均包含有声与无声保存分支。画布按模型与显存、内容与参考、采样、解码、有声输出、无声输出分区。
+| [单首帧](workflows/02_image_to_video.json) | 首帧＋提示词 | 从指定画面开始运动 |
+| [首尾帧](workflows/03_first_last_frame.json) | 起止两帧＋提示词 | 生成两帧之间的变化 |
+| [多参考](workflows/04_reference_to_video.json) | 人物、场景参考＋提示词 | 组合不同参考特征 |
 
 ## 快速开始
 
-1. 安装兼容的 ComfyUI 与 KJNodes，并准备已验证的 INT8 ConvRot 运行环境。
-2. 下载五份基础权重及前三种模式所需的768p 8步LoRA。仅使用前三种模式时，可暂缓下载REF2VA主模型。
-3. 从本仓库下载所需 JSON，通过 ComfyUI 工作流打开功能或拖入画布导入。
-4. 文生模式可直接修改提示词。参考模式先在 LoadImage 中上传自己的素材，保持 Picture 编号对应。
-5. 首次运行沿用1344×768、124帧及默认分块。前三种模式为8步，多参考为20步，默认保存有声MP4。
+1. 按安装说明准备ComfyUI、KJNodes和匹配的INT8 ConvRot运行环境。
+2. 下载所需主模型、编码器、VAE及对应任务的八步LoRA。完整四模式共七份权重，约60.5 GiB。
+3. 秋叶用户通过绘世启动器一键启动。已有ComfyUI用户按自己的方式启动，再导入所需JSON。
+4. 修改绿色区域的提示词。带图片入口的模式先上传自己的图片，保持Picture编号对应。
+5. 使用默认1344×768、124帧、8步及分块4/4完成首次生成。
 
-秋叶用户通过绘世启动器启动后导入工作流。已有 ComfyUI 用户使用自己的环境启动。安装前核对固定版本与运行条件。[安装与模型下载](docs/installation.md)
+默认保存有声MP4。选中保存节点，按Ctrl+M切换有声或无声分支。[安装与模型下载](docs/installation.md) · [操作与调参](docs/usage.md)
 
-## 模型与节点
+## 八步实测
 
-五份权重来自 Comfy-Org 的 MiniMax H3 转换仓库，模型路径位于 `diffusion_models`、`text_encoders` 和 `vae`。完整链接、文件大小与安装位置集中在安装文档。五份基础权重约56.9 GiB，8步LoRA另需约1.82 GiB。[模型来源](https://huggingface.co/Comfy-Org/MiniMax-H3)
+2026年11月12日，RTX 5070 Laptop 8GB、约32GB系统内存，原生1344×768、124帧、24fps，有声输出。
 
-自定义节点包为 KJNodes，使用 `MiniMaxChunkFeedForward`、`MiniMaxLowVRAMAttention` 和 `ModelMemoryUsageFactorOverride`。其余计算节点由匹配版本的 ComfyUI 提供。[KJNodes](https://github.com/kijai/ComfyUI-KJNodes)
+| 模式 | 完整耗时 | 系统内存采样峰值 | 验证状态 |
+|---|---:|---:|---|
+| 文生视频 | 8分44秒 | 29.846 GiB | 生成与媒体检查完成，样片获认可 |
+| 多参考v1.1 | 9分59秒 | 30.172 GiB | 生成与媒体检查完成，样片获认可 |
+| 单首帧 | 待测 | 待测 | 连线与参数核对完成，八步成片待验收 |
+| 首尾帧 | 待测 | 待测 | 连线与参数核对完成，八步成片待验收 |
 
-前三种模式额外加载LightX2V/ModelTC的FL2VA Turbo 8-step v1.0 768p LoRA，强度1，视频／音频shift为6／3。多参考采用独立Ref2VA主模型及20步配置。[Turbo来源](https://github.com/ModelTC/Minimax-H3-Turbo)
+耗时包含加载、编码、采样、解码、保存和媒体检查。资源每15秒采样，包含后台应用占用。两条已测样例各覆盖一个提示词和种子。其他显卡、更小显存或内存、十秒成片、中文对白及连续压力测试待验证。多参考样例对第二张相似场景参考的布局遵循有限。[详细实测与验证范围](docs/benchmarks.md)
 
-Ref2VA也有专用的768p 8步LoRA v1.0、v1.1，已核实上游权重文件存在，本机对照测试待进行。当前多参考入口采用已测20步配置。[Ref2VA候选说明](docs/installation.md#多参考的8步加速候选)
+## 低显存与时长
 
-## 低显存参数
-
-| 参数 | 默认约 5 秒 | 约 10 秒 |
+| 参数 | 默认约5秒 | 约10秒的调节起点 |
 |---|---:|---:|
 | width × height | 1344×768 | 1344×768 |
 | length | 124 | 243 |
 | fps | 24 | 24 |
-| steps（前三种／多参考） | 8／20 | 8／20（8步10秒待测） |
-| 前馈 chunks | 4 | 16 |
+| steps | 8 | 8 |
+| 前馈chunks | 4 | 16 |
 | attention head_chunks | 4 | 16 |
 | memory_usage_factor | 0.2 | 0.2 |
 
-分块降低计算过程的显存峰值，同时增加调用和调度开销。显存预留参数影响权重驻留与采样激活空间。当前 8GB 配置使用系统内存协助承载模型，建议从已验证的约 32GB 系统内存条件开始。
+约10秒配置待本机完整验证。增加帧数会提高计算和内存需求，耗时无法按时长直接线性外推。改变帧数后，同步更新提示词时间，首尾帧模式还需更新尾帧时刻。
 
-帧数增加会显著提高序列计算和内存需求。10 秒耗时应参考实测，5 秒结果无法直接按比例外推。更改帧数时同时更新提示词时间，首尾帧还需更新尾帧时间。[使用与调参](docs/usage.md)
+## 八步文生样例
 
-## 实测结果与限制
+https://github.com/user-attachments/assets/26443a8b-0c2a-499d-9dd7-8aa4bad88d6c
 
-2026年11月12日，同提示词、同种子、124帧的原生文生对照，20步耗时18分28秒，8步LoRA耗时8分44秒，缩短约53%。8步文生有声输出完成尺寸、帧数、帧率及音轨检查，并经用户选定。单首帧、首尾帧的8步成片及8步10秒模式待验证。
-
-以下为2026年11月7日历史20步配置的五次连续完整生成记录。
-
-| 模式 | 实际时长 | 完整耗时 |
-|---|---:|---:|
-| 文生视频 | 5.167 秒 | 17 分 33 秒 |
-| 单首帧 | 5.167 秒 | 18 分 58 秒 |
-| 首尾帧 | 5.167 秒 | 20 分 31 秒 |
-| 多参考 | 5.167 秒 | 20 分 32 秒 |
-| 文生视频 | 10.125 秒 | 59 分 15 秒 |
-
-已检查有声与无声共十份 MP4 的尺寸、帧率、帧数、时长和音轨，两分支解码后的逐帧画面哈希一致。各模式分别连续五次的压力测试待进行。
-
-多参考样例对第二张环境参考的遵循有限。其他 10 秒模式尚未实测。中文对白需逐条试听。当前工作流输出原生 768p，最终画面表现取决于提示词、素材和种子。[详细测量与验证范围](docs/benchmarks.md)
-
-## 示例与素材
-
-当前8步LoRA文生样例为原生1344×768、124帧、24fps，完整耗时8分44秒。[下载当前8步AI生成样例](examples/ai-generated-t2v-8step.mp4)
-
-![8步LoRA样例预览](examples/ai-generated-t2v-8step-preview.jpg)
-
-下方在线播放器展示历史20步样例。
-
-https://github.com/user-attachments/assets/a918928a-91ec-4604-ac32-15d8b59472d5
-
-2026年11月10日发布复核的历史20步文生样例完整耗时17分30秒，实际1344×768、124帧、24 fps并含音轨。[下载AI生成样例视频](examples/ai-generated-t2v-768p.mp4)
-
-
-参考入口使用 `first_frame.png`、`last_frame.png`、`subject_reference.png`、`scene_reference.png` 作为上传提示，导入后选择自己的图片。示例发布范围和来源记录见 examples 目录。[示例说明](examples/README.md)
+AI生成，原生1344×768、124帧、24fps、FL2VA v1.0八步LoRA，完整耗时8分44秒。[下载样例视频](examples/ai-generated-t2v-8step.mp4) · [素材来源说明](examples/README.md)
 
 ## 许可与致谢
 
-原创编排、原创提示词和新增文档采用 MIT 许可。ComfyUI、KJNodes、模型、第三方许可文本及媒体分别遵循其适用条款。H3 使用 MiniMax H3 Community License Agreement，包含地域和使用限制，使用前阅读上游许可。[本仓库 MIT 许可](LICENSE) · [第三方来源与许可](THIRD_PARTY_NOTICES.md) · [H3 上游许可](licenses/MiniMax-H3-LICENSE.txt)
+原创编排、原创提示词和文档采用MIT。模型、节点、第三方许可材料和媒体遵循各自上游条款。H3及Turbo模型仓库标注H3社区许可，包含地域和用途条件，使用前阅读完整原文。[MIT](LICENSE) · [第三方来源](THIRD_PARTY_NOTICES.md) · [H3许可](licenses/MiniMax-H3-LICENSE.txt)
 
-感谢 MiniMax、Comfy-Org、Kijai 和 Qwen 团队。Powered by MiniMax H3。
+感谢MiniMax、Comfy-Org、LightX2V／ModelTC、Kijai和Qwen。Powered by MiniMax H3。

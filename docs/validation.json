@@ -1,51 +1,87 @@
 {
-  "date": "2026-11-12T20:55:40.132426",
+  "release": "v1.1.0",
+  "date": "2026-11-12T21:56:37.385067",
   "status": "static_passed_generation_coverage_partial",
   "workflows": [
     {
       "workflow": "01_text_to_video.json",
-      "sha256": "9abcfdd5653f9c2b13f37959bccd4ad5daa39e5dc8ea2a7383578e076028bd9f",
+      "sha256": "135ee6eb027f633cf8bb42105844207033aab60fc1cc7b39ca298bc2aaf0c833",
       "steps": 8,
+      "sampler": "euler",
+      "scheduler": "simple",
+      "shift": [
+        6,
+        3
+      ],
+      "lora": "minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors",
       "links_valid": true,
       "sampling_parameters_match_current_local_workflow": true,
-      "public_prompt_and_length": "previous published 124-frame example",
-      "frontend_import_after_update": "not_retested",
-      "generation_validation": "T2V recipe matched measured B run"
+      "generation": "measured_and_user_accepted",
+      "manual_frontend_import_after_update": "not_retested"
     },
     {
       "workflow": "02_image_to_video.json",
-      "sha256": "67f0a83e454b2bb993d5f709da98922935a106f68b0dcf10bfe44dcc119381a9",
+      "sha256": "5bd7cd0924a99bab19985a8ad7d10ce7f28f065a9689e7fb85d58438c40a8c9f",
       "steps": 8,
+      "sampler": "euler",
+      "scheduler": "simple",
+      "shift": [
+        6,
+        3
+      ],
+      "lora": "minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors",
       "links_valid": true,
       "sampling_parameters_match_current_local_workflow": true,
-      "public_prompt_and_length": "previous published 124-frame example",
-      "frontend_import_after_update": "not_retested",
-      "generation_validation": "8-step generation pending"
+      "generation": "pending",
+      "manual_frontend_import_after_update": "not_retested"
     },
     {
       "workflow": "03_first_last_frame.json",
-      "sha256": "7c328043b001cc530e6a847f4c75d7886a1091016500acbcda3cc634eb3dd300",
+      "sha256": "a66ab47be37798f304d7cacc945a75c74eb129f3006d30dc4961cce4f07cd3ba",
       "steps": 8,
+      "sampler": "euler",
+      "scheduler": "simple",
+      "shift": [
+        6,
+        3
+      ],
+      "lora": "minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors",
       "links_valid": true,
       "sampling_parameters_match_current_local_workflow": true,
-      "public_prompt_and_length": "previous published 124-frame example",
-      "frontend_import_after_update": "not_retested",
-      "generation_validation": "8-step generation pending"
+      "generation": "pending",
+      "manual_frontend_import_after_update": "not_retested"
     },
     {
       "workflow": "04_reference_to_video.json",
-      "sha256": "8f61b3ac00543b69614936daf14fbf3231f083cb4a930e3e3edcff3ff807324e",
-      "steps": 20,
+      "sha256": "90c717a3852891f3b30ca8adbf7563729aa3e5883ebc74ce284d52b6584e2e3a",
+      "steps": 8,
+      "sampler": "euler",
+      "scheduler": "simple",
+      "shift": [
+        6,
+        3
+      ],
+      "lora": "minimax_h3_ref2v_turbo_8step_v1.1_768p_comfyui_bf16.safetensors",
       "links_valid": true,
       "sampling_parameters_match_current_local_workflow": true,
-      "public_prompt_and_length": "previous published 124-frame example",
-      "frontend_import_after_update": "not_retested",
-      "generation_validation": "historical 20-step generation passed"
+      "generation": "measured_and_user_accepted",
+      "manual_frontend_import_after_update": "not_retested"
     }
   ],
-  "historical_20step_validation": "validation-v1.0.0.json",
-  "current_t2v_measured_seconds": 524.33,
-  "current_t2v_frames": 124,
-  "current_frontend_import": "not_retested",
-  "current_i2v_and_fl2v_generation": "pending"
+  "measured_runs": [
+    {
+      "mode": "t2v",
+      "frames": 124,
+      "seconds": 524.33,
+      "user_accepted": true
+    },
+    {
+      "mode": "ref2v",
+      "frames": 124,
+      "seconds": 598.68,
+      "user_accepted": true
+    }
+  ],
+  "private_path_and_secret_scan": "passed",
+  "manual_frontend_import_after_update": "not_retested"
 }

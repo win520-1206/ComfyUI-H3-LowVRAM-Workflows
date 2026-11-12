@@ -2,7 +2,7 @@
   "id": "f6ba3868-b49b-4d92-aacf-b5019e8f856a",
   "revision": 0,
   "last_node_id": 1000,
-  "last_link_id": 27,
+  "last_link_id": 28,
   "nodes": [
     {
       "id": 1,
@@ -67,7 +67,7 @@
       "type": "CLIPLoader",
       "pos": [
         0,
-        215
+        405
       ],
       "size": [
         350,
@@ -136,7 +136,7 @@
       "type": "VAELoader",
       "pos": [
         0,
-        380
+        570
       ],
       "size": [
         350,
@@ -183,7 +183,7 @@
       "type": "VAELoader",
       "pos": [
         0,
-        500
+        690
       ],
       "size": [
         350,
@@ -498,10 +498,10 @@
         "Node name for S&R": "KSamplerSelect"
       },
       "widgets_values": [
-        "res_multistep"
+        "euler"
       ],
       "widgets_values_named": {
-        "sampler_name": "res_multistep"
+        "sampler_name": "euler"
       },
       "title": "采样器"
     },
@@ -564,12 +564,12 @@
       },
       "widgets_values": [
         "simple",
-        20,
+        8,
         1.0
       ],
       "widgets_values_named": {
         "scheduler": "simple",
-        "steps": 20,
+        "steps": 8,
         "denoise": 1.0
       },
       "title": "步数与调度"
@@ -978,11 +978,11 @@
         "Node name for S&R": "MiniMaxH3SigmaShift"
       },
       "widgets_values": [
-        12.0,
+        6.0,
         3.0
       ],
       "widgets_values_named": {
-        "shift_video": 12.0,
+        "shift_video": 6.0,
         "shift_audio": 3.0
       },
       "title": "视频／音频采样偏移"
@@ -995,7 +995,7 @@
       "flags": {},
       "pos": [
         0,
-        625
+        815
       ],
       "size": [
         350,
@@ -1019,7 +1019,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 23
+          "link": 28
         }
       ],
       "widgets_values": [
@@ -1040,7 +1040,7 @@
       "flags": {},
       "pos": [
         0,
-        780
+        970
       ],
       "size": [
         350,
@@ -1381,7 +1381,7 @@
       "flags": {},
       "pos": [
         0,
-        925
+        1115
       ],
       "size": [
         350,
@@ -1432,13 +1432,72 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "使用说明 · 原生768p画质",
+      "title": "使用说明 · 原生768p八步LoRA",
       "properties": {},
       "widgets_values": [
-        "# MiniMax H3 低显存工作流\n\nRTX 5070 Laptop 8GB显存、约32GB系统内存。原生1344×768、124帧、24fps，约5.17秒。\n\nRef2VA INT8主模型、32B编码器、20步res_multistep/simple、shift 12/3。\n\n绿色区域修改提示词，图片入口需上传自己的素材并对应Picture标签。首尾帧时间需与时长匹配。\n\n有声与无声保存节点可用Ctrl+M启停，共用一次采样。\n\n默认前馈chunks=4、head_chunks=4、memory_usage_factor=0.2。延长至243帧约10.125秒时，将两种分块改为16。\n\n当前8步文生124帧完整实测约8分44秒，单首帧和首尾帧8步成片、8步10秒耗时待验证。多参考继续采用20步配置。\n\n使用前阅读仓库安装、参数、许可与验证范围说明。"
+        "# MiniMax H3 · 原生768p八步LoRA\n\nRTX 5070 Laptop 8GB显存、约32GB系统内存。默认1344×768、124帧、24fps，约5.17秒。\n\n多参考采用Ref2VA INT8主模型及Ref2VA Turbo 8-step v1.1 768p LoRA。\n\n32B量化编码器、LoRA强度1、Euler/simple、8步、视频shift 6、音频shift 3。\n\n绿色区域修改提示词和参考素材。图片入口是上传占位提示，Picture标签需与素材顺序对应。\n\n默认有声保存启用，无声保存禁用。选中对应保存节点，按Ctrl+M切换。\n\n前馈chunks=4、head_chunks=4、memory_usage_factor=0.2。243帧约10.125秒的调节起点为两种分块16；该时长八步成片待验证。\n\n124帧文生实测约8分44秒，多参考约9分59秒。单首帧、首尾帧八步成片及中文对白需各自验收。"
       ],
       "widgets_values_named": {
-        "text": "# MiniMax H3 低显存工作流\n\nRTX 5070 Laptop 8GB显存、约32GB系统内存。原生1344×768、124帧、24fps，约5.17秒。\n\nRef2VA INT8主模型、32B编码器、20步res_multistep/simple、shift 12/3。\n\n绿色区域修改提示词，图片入口需上传自己的素材并对应Picture标签。首尾帧时间需与时长匹配。\n\n有声与无声保存节点可用Ctrl+M启停，共用一次采样。\n\n默认前馈chunks=4、head_chunks=4、memory_usage_factor=0.2。延长至243帧约10.125秒时，将两种分块改为16。\n\n当前8步文生124帧完整实测约8分44秒，单首帧和首尾帧8步成片、8步10秒耗时待验证。多参考继续采用20步配置。\n\n使用前阅读仓库安装、参数、许可与验证范围说明。"
+        "text": "# MiniMax H3 · 原生768p八步LoRA\n\nRTX 5070 Laptop 8GB显存、约32GB系统内存。默认1344×768、124帧、24fps，约5.17秒。\n\n多参考采用Ref2VA INT8主模型及Ref2VA Turbo 8-step v1.1 768p LoRA。\n\n32B量化编码器、LoRA强度1、Euler/simple、8步、视频shift 6、音频shift 3。\n\n绿色区域修改提示词和参考素材。图片入口是上传占位提示，Picture标签需与素材顺序对应。\n\n默认有声保存启用，无声保存禁用。选中对应保存节点，按Ctrl+M切换。\n\n前馈chunks=4、head_chunks=4、memory_usage_factor=0.2。243帧约10.125秒的调节起点为两种分块16；该时长八步成片待验证。\n\n124帧文生实测约8分44秒，多参考约9分59秒。单首帧、首尾帧八步成片及中文对白需各自验收。"
+      }
+    },
+    {
+      "id": 37,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        0,
+        215
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "title": "Ref2VA v1.1 · 原生768p 8步LoRA",
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 23
+        },
+        {
+          "name": "lora_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "lora_name"
+          },
+          "link": null
+        },
+        {
+          "name": "strength_model",
+          "type": "FLOAT",
+          "widget": {
+            "name": "strength_model"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            28
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "minimax_h3_ref2v_turbo_8step_v1.1_768p_comfyui_bf16.safetensors",
+        1.0
+      ],
+      "widgets_values_named": {
+        "lora_name": "minimax_h3_ref2v_turbo_8step_v1.1_768p_comfyui_bf16.safetensors",
+        "strength_model": 1.0
       }
     }
   ],
@@ -1623,7 +1682,7 @@
       23,
       1,
       0,
-      31,
+      37,
       0,
       "MODEL"
     ],
@@ -1658,6 +1717,14 @@
       34,
       0,
       "MODEL"
+    ],
+    [
+      28,
+      37,
+      0,
+      31,
+      0,
+      "MODEL"
     ]
   ],
   "groups": [
@@ -1668,7 +1735,7 @@
         -25,
         25,
         400,
-        1035
+        1225
       ],
       "color": "#3f617d",
       "font_size": 24,

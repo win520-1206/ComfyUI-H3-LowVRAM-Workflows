@@ -2,16 +2,13 @@ ComfyUI-H3-LowVRAM-Workflows
 Copyright (c) 2026 win520-1206
 
 Powered by MiniMax H3
-MiniMax H3 is licensed under the MiniMax H3 Community License Agreement, Copyright © 2026 MiniMax. All Rights Reserved.
+MiniMax H3 is licensed under the MiniMax H3 Community License Agreement.
+Copyright © 2026 MiniMax. All Rights Reserved.
 
-The MIT license covers the original workflow arrangement, original example
-prompts and original documentation authored for this repository, to the extent
-the contributor has the right to license them. Third-party models, software,
-license texts and example media retain their own applicable terms.
+The MIT license covers original workflow arrangement, original example prompts
+and original documentation to the extent the contributor has licensing rights.
+Third-party models, software, license texts and media follow their applicable terms.
 
-The public workflows adapt the maintainer's locally validated configuration.
-Changes for publication include public canvas notes, standardized image-upload
-placeholders and KJNodes package metadata. Sampling settings are preserved.
-
-The first three workflows use the FL2VA Turbo 8-step v1.0 768p LoRA
-from LightX2V / ModelTC, with its upstream Apache-2.0 license included.
+The workflows use FL2VA Turbo 8-step v1.0 768p and Ref2VA Turbo 8-step v1.1 768p
+from LightX2V / ModelTC. The model repository identifies the H3 Community License.
+The Turbo software repository provides an Apache-2.0 license, included separately.

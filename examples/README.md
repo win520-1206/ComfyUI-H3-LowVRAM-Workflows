@@ -1,34 +1,17 @@
-# 示例与素材来源
+# 八步示例与素材来源
 
-## 参考图片上传
+## 文生样例
 
-首版参考模式使用以下上传占位文件名。导入后在LoadImage节点选择自己的图片，修改提示词以符合素材内容。
+`ai-generated-t2v-8step.mp4` 为2026年11月12日生成的AI视频。人物由本项目文字提示词描述，为虚构成年角色。参数为1344×768、124帧、24fps、FL2VA Turbo v1.0八步、Euler/simple、强度1、shift 6/3、seed 20261107，完整耗时524.33秒。
 
-| 模式 | 文件提示 | 对应内容 |
+视频保留音视频流重新封装，并加入AI生成标注。已核对124帧解码RGB哈希与实测输出一致。`ai-generated-t2v-8step-preview.jpg` 取自第48帧。使用遵循模型与LoRA上游条款。
+
+## 参考图片入口
+
+| 模式 | 上传占位提示 | 对应内容 |
 |---|---|---|
-| 单首帧 | first_frame.png | Picture 1，起始画面 |
-| 首尾帧 | first_frame.png、last_frame.png | Picture 1起始、Picture 2结束 |
-| 多参考 | subject_reference.png、scene_reference.png | Picture 1人物、Picture 2环境 |
+| 单首帧 | first_frame.png | Picture 1，开始画面 |
+| 首尾帧 | first_frame.png、last_frame.png | Picture 1开始、Picture 2结束 |
+| 多参考 | subject_reference.png、scene_reference.png | Picture 1人物、Picture 2场景 |
 
-本机既有参考图片的最初来源尚未完整核实，首版采用使用者自行上传方式。现有舞蹈提示词作为编写结构示例，可随上传素材修改。
-
-## 文生示例
-
-文生模式的提示词由本项目编写，人物为文本描述的虚构成年角色。发布验证生成结果会作为AI生成样例记录，使用MiniMax H3生成，其使用遵循上游条款。
-
-
-## 首版公开样例
-
-`ai-generated-t2v-768p.mp4` 为2026年11月10日发布复核时，由本仓库文生提示词生成的AI视频。参数为1344×768、124帧、24 fps、20步、seed 20261107，完整复核耗时1050.30秒。人物由文字描述生成，使用者可在文生JSON中查看完整提示词。
-
-视频经过保留音视频流的重新封装，附有公开AI生成标注。已验证其124帧RGB哈希与原输出一致。预览图片直接取自该视频。视频使用遵循H3上游条款，相关许可信息见仓库第三方说明。
-
-`workflow-overview.png` 是本仓库文生工作流在ComfyUI中的实际布局截图。
-
-## 当前8步公开样例
-
-`ai-generated-t2v-8step.mp4` 为2026年11月12日原生768p 8步LoRA对照样例。参数为1344×768、124帧、24fps、Euler/simple、LoRA强度1、shift 6/3、seed 20261107，完整耗时524.33秒。
-
-视频沿用本项目的虚构成年人物文字描述，来自本机T2V对照输出。重新封装保留音视频流，并加入公开AI生成标注。`ai-generated-t2v-8step-preview.jpg` 取自第48帧。使用遵循基础模型与LoRA的上游条款。
-
-`workflow-overview.png` 为首版20步画布截图，当前前三套在模型分区新增8步LoRA节点。
+使用者上传自己的素材，并同步修改示例文字中的人物、服装、环境和动作。参考图片的来源及使用权限由素材提供者核实。

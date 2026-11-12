@@ -14,70 +14,44 @@
 | PyTorch | 2.13.0+cu130 |
 | Comfy Kitchen | 0.2.41 |
 
-ComfyUI 为 v0.44.0 之后的官方 master 固定开发提交。核心 API 仍可能报告 0.44.0。安装其他版本后，应先核对 H3 节点和 KJNodes 分块节点能否加载。
 
-五份基础权重总磁盘体积约56.9 GiB，前三种模式使用的8步LoRA另需约1.82 GiB，还需为运行环境、缓存和输出预留空间。仅前三种模式共用 FL2VA 主模型，可暂缓下载 REF2VA。
+核心采用v0.44.0之后的固定开发提交。安装其他版本时，核对H3核心节点、ConvRot量化能力及KJNodes节点是否可用。
 
-## 模型文件
+## 七份权重
 
-下表路径均相对于自己的 ComfyUI 根目录。模型下载由使用者按需操作。权重受各自上游许可约束。[上游转换仓库](https://huggingface.co/Comfy-Org/MiniMax-H3)
+下表目录相对于自己的ComfyUI根目录。完整四模式约60.5 GiB。使用某一任务时按对应主模型和LoRA下载，共享编码器及两个VAE。
 
 | 文件与下载链接 | 放置目录 | 大小约 | 用途 |
 |---|---|---:|---|
 | [minimax_h3_fl2va_pruned_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors?download=true) | `models/diffusion_models` | 19.53 GiB | 文生、单首帧、首尾帧 |
 | [minimax_h3_ref2va_pruned_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors?download=true) | `models/diffusion_models` | 19.53 GiB | 多参考 |
-| [qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors?download=true) | `models/text_encoders` | 14.61 GiB | 四种模式的编码器 |
+| [qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors?download=true) | `models/text_encoders` | 14.61 GiB | 共享编码器 |
 | [minimax_h3_video_vae_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_int8_convrot.safetensors?download=true) | `models/vae` | 2.62 GiB | 视频编解码 |
 | [minimax_h3_audio_vae_fp32.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors?download=true) | `models/vae` | 0.56 GiB | 音频编解码 |
-| [minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors](https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/main/minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors?download=true) | `models/loras` | 1.82 GiB | 文生、单首帧、首尾帧的768p 8步加速 |
+| [minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors](https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/main/minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors?download=true) | `models/loras` | 1.82 GiB | 前三种模式八步加速 |
+| [minimax_h3_ref2v_turbo_8step_v1.1_768p_comfyui_bf16.safetensors](https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/main/minimax_h3_ref2v_turbo_8step_v1.1_768p_comfyui_bf16.safetensors?download=true) | `models/loras` | 1.82 GiB | 多参考八步加速 |
 
-LoRA强度1，Euler/simple，8步，视频／音频shift为6／3。多参考继续使用原生20步配置。[Turbo作者说明](https://github.com/ModelTC/Minimax-H3-Turbo)
+核对任务名fl2v／ref2v、版本、768p和comfyui格式。四套采样均为Euler/simple、8步、LoRA强度1、视频／音频shift 6/3。[基础权重来源](https://huggingface.co/Comfy-Org/MiniMax-H3) · [Turbo权重来源](https://huggingface.co/lightx2v/Minimax-h3-Turbo)
 
-### 多参考的8步加速候选
-
-2026年11月12日直接核对权重文件列表，LightX2V已提供Ref2VA专用的768p 8步ComfyUI LoRA，包括v1.0和v1.1，每份约1.82 GiB。本仓库当前多参考入口采用已测的20步配置，这两份LoRA的本机兼容性、速度、画质及参考遵循程度待对照验证。GitHub项目首页的模型表与实际权重列表存在差异，下载时核对任务为ref2v、分辨率768p、ComfyUI格式及版本号。[v1.0权重](https://huggingface.co/lightx2v/Minimax-h3-Turbo/blob/main/minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors) · [v1.1权重](https://huggingface.co/lightx2v/Minimax-h3-Turbo/blob/main/minimax_h3_ref2v_turbo_8step_v1.1_768p_comfyui_bf16.safetensors)
-
-已核验主模型及LoRA SHA256可用于下载后对照。
+### 下载完整性
 
 ```text
-FL2VA  e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a
-REF2VA 9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779
-Turbo768p8step 08cfe946033af7d27719b964b6e0a0e50c32138daabbd6ce4137e23df6bf9980
+FL2VA INT8 e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a
+Ref2VA INT8 9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779
+FL2VA LoRA v1.0 08cfe946033af7d27719b964b6e0a0e50c32138daabbd6ce4137e23df6bf9980
+Ref2VA LoRA v1.1 e56863a7524e0300729cbb7b64cc8b548d90698c1abbf7d83898b0122fbe1e81
 ```
 
-上游说明建议在支持 PyTorch/cu130 的环境优先使用 INT8 ConvRot，NVFP4 编码器本身也可在其他 GPU 架构上使用。本仓库的整套工作流只在上述硬件组合完成验证。[上游运行说明](https://huggingface.co/Comfy-Org/MiniMax-H3)
+## 节点与启动
 
-## 节点安装
+安装KJNodes及其requirements，固定环境使用上表提交。需要MiniMaxChunkFeedForward、MiniMaxLowVRAMAttention、ModelMemoryUsageFactorOverride三个节点。[KJNodes](https://github.com/kijai/ComfyUI-KJNodes)
 
-通过 ComfyUI-Manager 安装 KJNodes，或从官方仓库安装并使用当前环境的 Python 安装其 requirements。需要复现测试环境时，使用上表固定提交。KJNodes 注册名为 `comfyui-kjnodes`。[KJNodes 源码](https://github.com/kijai/ComfyUI-KJNodes)
+LoraLoaderModelOnly、H3条件、音视频潜变量拆分、编解码和视频保存来自匹配版本的ComfyUI。
 
-需要以下三个自定义节点。
+秋叶用户将模型放入整合包内对应目录，通过绘世一键启动。已测环境使用 `--use-ck-attention`。如启用了节点白名单，将 `comfyui-kjnodes` 加入现有列表。已有ComfyUI用户按自己的方式启动，核对CUDA、PyTorch和Comfy Kitchen兼容性。
 
-- `MiniMaxChunkFeedForward`
-- `MiniMaxLowVRAMAttention`
-- `ModelMemoryUsageFactorOverride`
+## 首次导入
 
-H3 条件节点、音视频潜变量拆分、编解码和视频保存节点来自匹配版本的 ComfyUI。缺失这些节点时，先核对核心提交。
+导入JSON后核对每个模型文件名。参考模式在LoadImage中上传素材，再按提示词中的Picture编号匹配。图片名称是上传占位提示。
 
-## 秋叶整合包
-
-1. 为自己的整合包做好版本和配置备份。
-2. 通过启动器检查 ComfyUI 与 KJNodes 版本，把模型放入整合包内的 ComfyUI/models 对应目录。
-3. 本机验证使用 `--use-ck-attention`。已验证的软件组合支持此选项，其他环境需先确认该注意力后端可用。
-4. 如果启动配置启用了自定义节点白名单，将 `comfyui-kjnodes` 加入自己的现有列表。
-5. 点击一键启动，将工作流 JSON 拖入 ComfyUI 或通过打开工作流导入。
-
-## 已有 ComfyUI 环境
-
-在自己的安装目录更新或固定到上述核心版本，安装 KJNodes，下载模型，再按原有方式启动。验证时使用 CK attention。CUDA、PyTorch 和 Comfy Kitchen 需互相兼容，具体安装参照各项目官方说明。
-
-导入参考模式后，在 LoadImage 中上传图片。仓库中的图片名称作为上传提示，实际文件由使用者提供。导入后先检查模型下拉框是否能找到准确文件名，再运行生成。
-
-## 常见问题
-
-- 出现缺失节点，检查 ComfyUI 固定提交、KJNodes 安装日志和白名单。
-- 出现模型找不到，检查文件名、目录和下载完整性，再刷新模型列表或重启。
-- 出现 CUDA、量化算子或 CK attention 报错，检查驱动、PyTorch/cu130 和 Comfy Kitchen 组合。
-- 内存接近满载时，关闭其他高内存应用，从124帧开始。新硬件的调整结果应重新实测。
-
-原测试整合包有14项既有可选依赖提示，已验证链路运行成功。环境表用于记录实际验证条件，使用者应依据自身安装日志处理具体错误。
+遇到缺失节点时核对核心与KJNodes版本。找不到模型时检查目录、完整文件名与下载校验，再刷新模型列表。量化或注意力算子报错时核对本页软件组合。
