@@ -33,6 +33,10 @@ ComfyUI 为 v0.44.0 之后的官方 master 固定开发提交。核心 API 仍�
 
 LoRA强度1，Euler/simple，8步，视频／音频shift为6／3。多参考继续使用原生20步配置。[Turbo作者说明](https://github.com/ModelTC/Minimax-H3-Turbo)
 
+### 多参考的8步加速候选
+
+2026年11月12日直接核对权重文件列表，LightX2V已提供Ref2VA专用的768p 8步ComfyUI LoRA，包括v1.0和v1.1，每份约1.82 GiB。本仓库当前多参考入口采用已测的20步配置，这两份LoRA的本机兼容性、速度、画质及参考遵循程度待对照验证。GitHub项目首页的模型表与实际权重列表存在差异，下载时核对任务为ref2v、分辨率768p、ComfyUI格式及版本号。[v1.0权重](https://huggingface.co/lightx2v/Minimax-h3-Turbo/blob/main/minimax_h3_ref2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors) · [v1.1权重](https://huggingface.co/lightx2v/Minimax-h3-Turbo/blob/main/minimax_h3_ref2v_turbo_8step_v1.1_768p_comfyui_bf16.safetensors)
+
 已核验主模型及LoRA SHA256可用于下载后对照。
 
 ```text

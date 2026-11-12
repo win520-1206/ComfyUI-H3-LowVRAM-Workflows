@@ -47,6 +47,8 @@
 
 前三种模式额外加载LightX2V/ModelTC的FL2VA Turbo 8-step v1.0 768p LoRA，强度1，视频／音频shift为6／3。多参考采用独立Ref2VA主模型及20步配置。[Turbo来源](https://github.com/ModelTC/Minimax-H3-Turbo)
 
+Ref2VA也有专用的768p 8步LoRA v1.0、v1.1，已核实上游权重文件存在，本机对照测试待进行。当前多参考入口采用已测20步配置。[Ref2VA候选说明](docs/installation.md#多参考的8步加速候选)
+
 ## 低显存参数
 
 | 参数 | 默认约 5 秒 | 约 10 秒 |
