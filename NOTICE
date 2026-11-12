@@ -12,3 +12,6 @@ license texts and example media retain their own applicable terms.
 The public workflows adapt the maintainer's locally validated configuration.
 Changes for publication include public canvas notes, standardized image-upload
 placeholders and KJNodes package metadata. Sampling settings are preserved.
+
+The first three workflows use the FL2VA Turbo 8-step v1.0 768p LoRA
+from LightX2V / ModelTC, with its upstream Apache-2.0 license included.

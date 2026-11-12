@@ -29,3 +29,7 @@ H3编码器基于Qwen3-VL-32B。H3上游许可附注说明该编码器采用Apac
 ## 示例媒体
 
 素材来源及发布状态记录在examples/README.md。公开媒体需标明AI生成。工作流中的图片文件名是待使用者上传的占位提示。
+
+## MiniMax H3 Turbo LoRA
+
+前三种模式采用LightX2V/ModelTC发布的FL2VA Turbo 8-step v1.0 768p ComfyUI LoRA。作者项目提供Apache-2.0许可，副本随仓库附带。基础模型继续遵循H3社区许可，使用时参照各上游完整条款。[Turbo源码与说明](https://github.com/ModelTC/Minimax-H3-Turbo) · [LoRA权重](https://huggingface.co/lightx2v/Minimax-h3-Turbo) · [许可副本](licenses/Minimax-H3-Turbo-LICENSE.txt)

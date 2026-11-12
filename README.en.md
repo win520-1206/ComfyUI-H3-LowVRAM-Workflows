@@ -7,11 +7,20 @@ with 8GB VRAM and approximately 32GB system RAM.
 
 - Text-to-video, first-frame image-to-video, first/last-frame and reference-to-video.
 - Native 1344×768 output, 124 frames at 24 fps, approximately 5.17 seconds.
-- INT8 ConvRot diffusion models, a 32B NVFP4 AWQ text encoder and 20 sampling steps.
+- INT8 ConvRot diffusion models and a 32B NVFP4 AWQ text encoder.
+- An 8-step Turbo LoRA for T2V, first-frame and first/last-frame workflows.
+- Reference-to-video uses its dedicated REF2VA model with 20 steps.
 - Feed-forward chunking, attention-head chunking and activation-memory reservation.
 - Audio and silent save branches share the same sampling pass.
 
 ## Measured performance
+
+On November 12, 2026, the 124-frame native-768p T2V comparison took 18m28s
+with the 20-step baseline and 8m44s with the 8-step LoRA, approximately 53% faster.
+The maintainer selected the 8-step recipe after reviewing the samples. Eight-step
+image-conditioned outputs and 10-second outputs still need validation.
+
+The table below records the historical 20-step configuration.
 
 | Mode | Duration | Full generation time |
 |---|---:|---:|
@@ -28,7 +37,8 @@ other GPU architectures and 10-second reference modes remain untested.
 ## Getting started
 
 1. Follow the pinned environment and model instructions in the installation guide.
-2. Install KJNodes and download the required model files from their upstream source.
+2. Install KJNodes and download the base models plus the 768p FL2VA 8-step Turbo LoRA.
+   Use Euler/simple, LoRA strength 1 and video/audio shifts 6/3 for the first three modes.
 3. Import a JSON from `workflows/` into ComfyUI.
 4. Upload your own images for reference modes and keep Picture labels aligned.
 5. Start with the default 124-frame configuration. Select the relevant SaveVideo
@@ -43,6 +53,10 @@ environments need compatibility testing. Second-image scene adherence in the
 reference workflow is limited. Spoken dialogue needs individual listening checks.
 
 [Installation and models](docs/installation.md) · [Usage and parameters](docs/usage.md) · [Benchmarks](docs/benchmarks.md)
+
+## Current sample
+
+[Download the 8-step AI-generated T2V sample](examples/ai-generated-t2v-8step.mp4)
 
 ## Licensing
 

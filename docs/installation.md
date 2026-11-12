@@ -16,7 +16,7 @@
 
 ComfyUI 为 v0.44.0 之后的官方 master 固定开发提交。核心 API 仍可能报告 0.44.0。安装其他版本后，应先核对 H3 节点和 KJNodes 分块节点能否加载。
 
-模型总磁盘体积约 56.9 GiB，还需为运行环境、缓存和输出预留空间。仅前三种模式共用 FL2VA 主模型，可暂缓下载 REF2VA。
+五份基础权重总磁盘体积约56.9 GiB，前三种模式使用的8步LoRA另需约1.82 GiB，还需为运行环境、缓存和输出预留空间。仅前三种模式共用 FL2VA 主模型，可暂缓下载 REF2VA。
 
 ## 模型文件
 
@@ -29,12 +29,16 @@ ComfyUI 为 v0.44.0 之后的官方 master 固定开发提交。核心 API 仍�
 | [qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors?download=true) | `models/text_encoders` | 14.61 GiB | 四种模式的编码器 |
 | [minimax_h3_video_vae_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_video_vae_int8_convrot.safetensors?download=true) | `models/vae` | 2.62 GiB | 视频编解码 |
 | [minimax_h3_audio_vae_fp32.safetensors](https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/vae/minimax_h3_audio_vae_fp32.safetensors?download=true) | `models/vae` | 0.56 GiB | 音频编解码 |
+| [minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors](https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/main/minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors?download=true) | `models/loras` | 1.82 GiB | 文生、单首帧、首尾帧的768p 8步加速 |
 
-已核验主模型 SHA256 可用于下载后对照。
+LoRA强度1，Euler/simple，8步，视频／音频shift为6／3。多参考继续使用原生20步配置。[Turbo作者说明](https://github.com/ModelTC/Minimax-H3-Turbo)
+
+已核验主模型及LoRA SHA256可用于下载后对照。
 
 ```text
 FL2VA  e889202c41dafb67b10d67b97f0d8541508036a6090af23425a5c2615d03c47a
 REF2VA 9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779
+Turbo768p8step 08cfe946033af7d27719b964b6e0a0e50c32138daabbd6ce4137e23df6bf9980
 ```
 
 上游说明建议在支持 PyTorch/cu130 的环境优先使用 INT8 ConvRot，NVFP4 编码器本身也可在其他 GPU 架构上使用。本仓库的整套工作流只在上述硬件组合完成验证。[上游运行说明](https://huggingface.co/Comfy-Org/MiniMax-H3)

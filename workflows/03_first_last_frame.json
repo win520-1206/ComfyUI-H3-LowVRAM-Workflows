@@ -2,7 +2,7 @@
   "id": "e9d1f55e-c734-4e5e-859e-657ccb6c0e82",
   "revision": 0,
   "last_node_id": 1000,
-  "last_link_id": 26,
+  "last_link_id": 27,
   "nodes": [
     {
       "id": 1,
@@ -67,7 +67,7 @@
       "type": "CLIPLoader",
       "pos": [
         0,
-        215
+        405
       ],
       "size": [
         350,
@@ -136,7 +136,7 @@
       "type": "VAELoader",
       "pos": [
         0,
-        380
+        570
       ],
       "size": [
         350,
@@ -183,7 +183,7 @@
       "type": "VAELoader",
       "pos": [
         0,
-        500
+        690
       ],
       "size": [
         350,
@@ -450,10 +450,10 @@
         "Node name for S&R": "KSamplerSelect"
       },
       "widgets_values": [
-        "res_multistep"
+        "euler"
       ],
       "widgets_values_named": {
-        "sampler_name": "res_multistep"
+        "sampler_name": "euler"
       },
       "title": "采样器"
     },
@@ -516,12 +516,12 @@
       },
       "widgets_values": [
         "simple",
-        20,
+        8,
         1.0
       ],
       "widgets_values_named": {
         "scheduler": "simple",
-        "steps": 20,
+        "steps": 8,
         "denoise": 1.0
       },
       "title": "步数与调度"
@@ -930,11 +930,11 @@
         "Node name for S&R": "MiniMaxH3SigmaShift"
       },
       "widgets_values": [
-        12.0,
+        6.0,
         3.0
       ],
       "widgets_values_named": {
-        "shift_video": 12.0,
+        "shift_video": 6.0,
         "shift_audio": 3.0
       },
       "title": "视频／音频采样偏移"
@@ -947,7 +947,7 @@
       "flags": {},
       "pos": [
         0,
-        625
+        815
       ],
       "size": [
         350,
@@ -971,7 +971,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 22
+          "link": 27
         }
       ],
       "widgets_values": [
@@ -992,7 +992,7 @@
       "flags": {},
       "pos": [
         0,
-        780
+        970
       ],
       "size": [
         350,
@@ -1333,7 +1333,7 @@
       "flags": {},
       "pos": [
         0,
-        925
+        1115
       ],
       "size": [
         350,
@@ -1384,11 +1384,73 @@
       "mode": 0,
       "inputs": [],
       "outputs": [],
-      "title": "使用说明 · 原生768p画质",
+      "title": "使用说明 · 原生768p 8步LoRA",
       "properties": {},
       "widgets_values": [
-        "# MiniMax H3 低显存工作流\n\n已验证环境为 RTX 5070 Laptop 8GB 显存、约32GB系统内存。默认1344×768、124帧、24 fps、20步、INT8主模型与32B量化编码器。\n\n## 使用\n\n修改绿色内容区的提示词。带图片入口的模式先上传自己的图片，再保持 Picture 编号对应。图片文件名是上传占位提示。首尾帧需对齐0.00秒与5.17秒。\n\n选中相应 SaveVideo 节点，按 Ctrl+M 切换启用状态。默认保存有声视频，无声保存已禁用。两者同时启用会共用一次采样。\n\n## 低显存参数\n\n124帧约5.17秒，前馈chunks=4、head_chunks=4、memory_usage_factor=0.2。\n\n243帧约10.125秒，前馈chunks=16、head_chunks=16、memory_usage_factor=0.2，同时更新提示词时间。文生视频本机实测约59分钟，其他10秒模式待测。\n\n分块降低计算过程的显存峰值，也增加执行开销。系统内存实测总占用接近30GB，包含桌面和其他应用。\n\n## 说明\n\n四种5秒模式完整耗时约18至21分钟。当前输出为原生768p。多参考对第二张环境参考的遵循有限。使用前阅读仓库的安装、参数、许可与限制说明。\n"
-      ]
+        "# MiniMax H3 低显存工作流\n\nRTX 5070 Laptop 8GB显存、约32GB系统内存。原生1344×768、124帧、24fps，约5.17秒。\n\nFL2VA INT8主模型、32B编码器、768p Turbo 8步LoRA强度1、Euler/simple、shift 6/3。\n\n绿色区域修改提示词，图片入口需上传自己的素材并对应Picture标签。首尾帧时间需与时长匹配。\n\n有声与无声保存节点可用Ctrl+M启停，共用一次采样。\n\n默认前馈chunks=4、head_chunks=4、memory_usage_factor=0.2。延长至243帧约10.125秒时，将两种分块改为16。\n\n当前8步文生124帧完整实测约8分44秒，单首帧和首尾帧8步成片、8步10秒耗时待验证。多参考继续采用20步配置。\n\n使用前阅读仓库安装、参数、许可与验证范围说明。"
+      ],
+      "widgets_values_named": {
+        "text": "# MiniMax H3 低显存工作流\n\nRTX 5070 Laptop 8GB显存、约32GB系统内存。原生1344×768、124帧、24fps，约5.17秒。\n\nFL2VA INT8主模型、32B编码器、768p Turbo 8步LoRA强度1、Euler/simple、shift 6/3。\n\n绿色区域修改提示词，图片入口需上传自己的素材并对应Picture标签。首尾帧时间需与时长匹配。\n\n有声与无声保存节点可用Ctrl+M启停，共用一次采样。\n\n默认前馈chunks=4、head_chunks=4、memory_usage_factor=0.2。延长至243帧约10.125秒时，将两种分块改为16。\n\n当前8步文生124帧完整实测约8分44秒，单首帧和首尾帧8步成片、8步10秒耗时待验证。多参考继续采用20步配置。\n\n使用前阅读仓库安装、参数、许可与验证范围说明。"
+      }
+    },
+    {
+      "id": 37,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        0,
+        215
+      ],
+      "size": [
+        350,
+        160
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "title": "H3 原生768p · 8步加速LoRA",
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 22
+        },
+        {
+          "name": "lora_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "lora_name"
+          },
+          "link": null
+        },
+        {
+          "name": "strength_model",
+          "type": "FLOAT",
+          "widget": {
+            "name": "strength_model"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            27
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors",
+        1.0
+      ],
+      "widgets_values_named": {
+        "lora_name": "minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16.safetensors",
+        "strength_model": 1.0
+      }
     }
   ],
   "links": [
@@ -1564,7 +1626,7 @@
       22,
       1,
       0,
-      31,
+      37,
       0,
       "MODEL"
     ],
@@ -1599,6 +1661,14 @@
       34,
       0,
       "MODEL"
+    ],
+    [
+      27,
+      37,
+      0,
+      31,
+      0,
+      "MODEL"
     ]
   ],
   "groups": [
@@ -1609,7 +1679,7 @@
         -25,
         25,
         400,
-        1035
+        1225
       ],
       "color": "#3f617d",
       "font_size": 24,

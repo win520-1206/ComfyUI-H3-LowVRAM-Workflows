@@ -1,109 +1,51 @@
 {
-  "date": "2026-11-10T20:54:50.107664+08:00",
-  "status": "passed",
+  "date": "2026-11-12T20:55:40.132426",
+  "status": "static_passed_generation_coverage_partial",
   "workflows": [
     {
       "workflow": "01_text_to_video.json",
-      "sha256": "7b717e7abed88fd488b13000bb290d48de14e54d32d08cf89b1186640ea4fbc0",
-      "node_count": 22,
-      "registered_types": true,
+      "sha256": "9abcfdd5653f9c2b13f37959bccd4ad5daa39e5dc8ea2a7383578e076028bd9f",
+      "steps": 8,
       "links_valid": true,
-      "layout_preserved": true,
-      "sampling_matches_validated_source": true,
-      "matches_frontend_validated_api": true
+      "sampling_parameters_match_current_local_workflow": true,
+      "public_prompt_and_length": "previous published 124-frame example",
+      "frontend_import_after_update": "not_retested",
+      "generation_validation": "T2V recipe matched measured B run"
     },
     {
       "workflow": "02_image_to_video.json",
-      "sha256": "702d7c686e92ddc0c07d46f673602d0f9b5ebd1644f11ffb51886d2f3247dfa4",
-      "node_count": 23,
-      "registered_types": true,
+      "sha256": "67f0a83e454b2bb993d5f709da98922935a106f68b0dcf10bfe44dcc119381a9",
+      "steps": 8,
       "links_valid": true,
-      "layout_preserved": true,
-      "sampling_matches_validated_source": true,
-      "matches_frontend_validated_api": true
+      "sampling_parameters_match_current_local_workflow": true,
+      "public_prompt_and_length": "previous published 124-frame example",
+      "frontend_import_after_update": "not_retested",
+      "generation_validation": "8-step generation pending"
     },
     {
       "workflow": "03_first_last_frame.json",
-      "sha256": "b3d9515be3ec2f4560e5892843ef7dc9e4cf10bb4086abb2f57fddee6bb39d75",
-      "node_count": 24,
-      "registered_types": true,
+      "sha256": "7c328043b001cc530e6a847f4c75d7886a1091016500acbcda3cc634eb3dd300",
+      "steps": 8,
       "links_valid": true,
-      "layout_preserved": true,
-      "sampling_matches_validated_source": true,
-      "matches_frontend_validated_api": true
+      "sampling_parameters_match_current_local_workflow": true,
+      "public_prompt_and_length": "previous published 124-frame example",
+      "frontend_import_after_update": "not_retested",
+      "generation_validation": "8-step generation pending"
     },
     {
       "workflow": "04_reference_to_video.json",
-      "sha256": "64ffb259fa77a0e052a6d590158116a1a8dd056caf4e20b6647c337032d397ce",
-      "node_count": 24,
-      "registered_types": true,
+      "sha256": "8f61b3ac00543b69614936daf14fbf3231f083cb4a930e3e3edcff3ff807324e",
+      "steps": 20,
       "links_valid": true,
-      "layout_preserved": true,
-      "sampling_matches_validated_source": true,
-      "matches_frontend_validated_api": true
+      "sampling_parameters_match_current_local_workflow": true,
+      "public_prompt_and_length": "previous published 124-frame example",
+      "frontend_import_after_update": "not_retested",
+      "generation_validation": "historical 20-step generation passed"
     }
   ],
-  "private_path_and_secret_scan": "passed",
-  "local_markdown_links": "passed",
-  "reference_images": "upload_placeholders",
-  "ui_import": "passed_all_four",
-  "default_t2v_generation": {
-    "status": "passed",
-    "seconds": 1050.3,
-    "width": 1344,
-    "height": 768,
-    "frames": 124,
-    "fps": 24,
-    "duration_seconds": 5.166666666666667,
-    "audio_present": true,
-    "decoded_rgb_sha256": "420f9716981f2b89ea5775201457264419a4cae72c1a8130b273952c3ba86224",
-    "file_sha256": "27f72e345e99fd6edc7716b271cf45ce8ba587232f96e0685640b8a36caf9098",
-    "sample_file": "examples/ai-generated-t2v-768p.mp4",
-    "sample_sha256": "df3bb38f92e2c8ca14ce6a3cebdf0c30f8b3f82eebb6933efb4c6f9a16d930bf",
-    "sample_metadata": "remuxed with public AI-generation attribution",
-    "sampled_total_system_ram_peak_gib": 30.262
-  },
-  "frontend_api_roundtrip": [
-    {
-      "workflow": "01_text_to_video.json",
-      "normal_ui_import": "passed",
-      "frontend_api_roundtrip": "passed",
-      "additional_default_inputs": {
-        "SaveVideo.codec": "auto"
-      },
-      "unreachable_node": "CreateVideo 35",
-      "reference_upload_required": false
-    },
-    {
-      "workflow": "02_image_to_video.json",
-      "normal_ui_import": "passed",
-      "frontend_api_roundtrip": "passed",
-      "additional_default_inputs": {
-        "SaveVideo.codec": "auto"
-      },
-      "unreachable_node": "CreateVideo 35",
-      "reference_upload_required": true
-    },
-    {
-      "workflow": "03_first_last_frame.json",
-      "normal_ui_import": "passed",
-      "frontend_api_roundtrip": "passed",
-      "additional_default_inputs": {
-        "SaveVideo.codec": "auto"
-      },
-      "unreachable_node": "CreateVideo 35",
-      "reference_upload_required": true
-    },
-    {
-      "workflow": "04_reference_to_video.json",
-      "normal_ui_import": "passed",
-      "frontend_api_roundtrip": "passed",
-      "additional_default_inputs": {
-        "SaveVideo.codec": "auto"
-      },
-      "unreachable_node": "CreateVideo 35",
-      "reference_upload_required": true
-    }
-  ],
-  "publication_line_endings": "LF; workflow values unchanged"
+  "historical_20step_validation": "validation-v1.0.0.json",
+  "current_t2v_measured_seconds": 524.33,
+  "current_t2v_frames": 124,
+  "current_frontend_import": "not_retested",
+  "current_i2v_and_fl2v_generation": "pending"
 }

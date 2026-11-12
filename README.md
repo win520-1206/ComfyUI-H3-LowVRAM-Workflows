@@ -9,14 +9,14 @@
 | GPU | NVIDIA RTX 5070 Laptop，8GB 显存 |
 | 系统内存 | 约 32GB，生成时系统总占用峰值约 30GB |
 | 生成规格 | 原生 1344×768，24 fps，124 帧约 5.17 秒 |
-| 采样 | 20 步，res_multistep / simple |
+| 采样 | 文生、单首帧、首尾帧采用8步Turbo LoRA、Euler/simple；多参考20步 |
 | 模型 | INT8 主模型、32B NVFP4 AWQ 编码器、INT8 视频 VAE |
 | 低显存处理 | 前馈分块、注意力头分块、采样显存预留控制 |
-| 完整耗时 | 5 秒样例约 18–21 分钟，10 秒文生样例约 59 分钟 |
+| 完整耗时 | 8步文生5.17秒实测8分44秒；历史20步四模式约18–21分钟 |
 
 其他显卡、更小显存或更小系统内存的组合待验证。耗时和资源数据包含本机环境影响，具体结果随内容、硬件和后台程序变化。
 
-![工作流分区预览](examples/workflow-overview.png)
+![首版20步画布分区预览，当前前三套新增LoRA节点](examples/workflow-overview.png)
 
 ## 四种生成模式
 
@@ -32,18 +32,20 @@
 ## 快速开始
 
 1. 安装兼容的 ComfyUI 与 KJNodes，并准备已验证的 INT8 ConvRot 运行环境。
-2. 下载五份模型到相应目录。仅使用前三种模式时，可暂缓下载 REF2VA 主模型。
+2. 下载五份基础权重及前三种模式所需的768p 8步LoRA。仅使用前三种模式时，可暂缓下载REF2VA主模型。
 3. 从本仓库下载所需 JSON，通过 ComfyUI 工作流打开功能或拖入画布导入。
 4. 文生模式可直接修改提示词。参考模式先在 LoadImage 中上传自己的素材，保持 Picture 编号对应。
-5. 首次运行沿用 1344×768、124 帧、20 步与默认分块。默认保存有声 MP4。
+5. 首次运行沿用1344×768、124帧及默认分块。前三种模式为8步，多参考为20步，默认保存有声MP4。
 
 秋叶用户通过绘世启动器启动后导入工作流。已有 ComfyUI 用户使用自己的环境启动。安装前核对固定版本与运行条件。[安装与模型下载](docs/installation.md)
 
 ## 模型与节点
 
-五份权重来自 Comfy-Org 的 MiniMax H3 转换仓库，模型路径位于 `diffusion_models`、`text_encoders` 和 `vae`。完整链接、文件大小与安装位置集中在安装文档。全部五份约 56.9 GiB。[模型来源](https://huggingface.co/Comfy-Org/MiniMax-H3)
+五份权重来自 Comfy-Org 的 MiniMax H3 转换仓库，模型路径位于 `diffusion_models`、`text_encoders` 和 `vae`。完整链接、文件大小与安装位置集中在安装文档。五份基础权重约56.9 GiB，8步LoRA另需约1.82 GiB。[模型来源](https://huggingface.co/Comfy-Org/MiniMax-H3)
 
 自定义节点包为 KJNodes，使用 `MiniMaxChunkFeedForward`、`MiniMaxLowVRAMAttention` 和 `ModelMemoryUsageFactorOverride`。其余计算节点由匹配版本的 ComfyUI 提供。[KJNodes](https://github.com/kijai/ComfyUI-KJNodes)
+
+前三种模式额外加载LightX2V/ModelTC的FL2VA Turbo 8-step v1.0 768p LoRA，强度1，视频／音频shift为6／3。多参考采用独立Ref2VA主模型及20步配置。[Turbo来源](https://github.com/ModelTC/Minimax-H3-Turbo)
 
 ## 低显存参数
 
@@ -52,7 +54,7 @@
 | width × height | 1344×768 | 1344×768 |
 | length | 124 | 243 |
 | fps | 24 | 24 |
-| steps | 20 | 20 |
+| steps（前三种／多参考） | 8／20 | 8／20（8步10秒待测） |
 | 前馈 chunks | 4 | 16 |
 | attention head_chunks | 4 | 16 |
 | memory_usage_factor | 0.2 | 0.2 |
@@ -63,7 +65,9 @@
 
 ## 实测结果与限制
 
-2026 年 11 月 7 日，以上硬件完成跨四种模式的五次连续完整生成。
+2026年11月12日，同提示词、同种子、124帧的原生文生对照，20步耗时18分28秒，8步LoRA耗时8分44秒，缩短约53%。8步文生有声输出完成尺寸、帧数、帧率及音轨检查，并经用户选定。单首帧、首尾帧的8步成片及8步10秒模式待验证。
+
+以下为2026年11月7日历史20步配置的五次连续完整生成记录。
 
 | 模式 | 实际时长 | 完整耗时 |
 |---|---:|---:|
@@ -79,9 +83,15 @@
 
 ## 示例与素材
 
+当前8步LoRA文生样例为原生1344×768、124帧、24fps，完整耗时8分44秒。[下载当前8步AI生成样例](examples/ai-generated-t2v-8step.mp4)
+
+![8步LoRA样例预览](examples/ai-generated-t2v-8step-preview.jpg)
+
+下方在线播放器展示历史20步样例。
+
 https://github.com/user-attachments/assets/a918928a-91ec-4604-ac32-15d8b59472d5
 
-2026年11月10日发布复核的默认文生样例完整耗时17分30秒，实际1344×768、124帧、24 fps并含音轨。[下载AI生成样例视频](examples/ai-generated-t2v-768p.mp4)
+2026年11月10日发布复核的历史20步文生样例完整耗时17分30秒，实际1344×768、124帧、24 fps并含音轨。[下载AI生成样例视频](examples/ai-generated-t2v-768p.mp4)
 
 
 参考入口使用 `first_frame.png`、`last_frame.png`、`subject_reference.png`、`scene_reference.png` 作为上传提示，导入后选择自己的图片。示例发布范围和来源记录见 examples 目录。[示例说明](examples/README.md)
