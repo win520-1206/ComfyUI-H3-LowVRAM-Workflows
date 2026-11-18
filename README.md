@@ -67,6 +67,16 @@ https://github.com/user-attachments/assets/26443a8b-0c2a-499d-9dd7-8aa4bad88d6c
 
 AI生成，原生1344×768、124帧、24fps、FL2VA v1.0八步LoRA，完整耗时8分44秒。[下载样例视频](examples/ai-generated-t2v-8step.mp4) · [素材来源说明](examples/README.md)
 
+## 外部收录与提及
+
+| 日期 | 来源 | 提及内容 |
+|---|---|---|
+| 2026-11-11 | [VFX DESK — 第75号 VFX・AI・CG 日报](https://vfx-desk.com/daily/75) | 收录四种MiniMax H3 ComfyUI工作流，介绍仓库记录的8GB显存测试配置与生成表现 |
+| 2026-11-11 | [Fervor Creative AI — Creative AI Briefing](https://fervorcreativeai.com/briefings/2026-11-11-0512/) | 在“Open and local”板块介绍本项目的四种生成模式及低显存运行记录 |
+| 2026-11-12 | [.neurocartel — AI video upscaling on your own GPU](https://specialinfluencers.com/en/blog/recavsr-comfyui-local-video-upscale) | 在本地AI视频工作流专题中提及本项目，并引用Fervor的低显存运行介绍 |
+
+文章内容反映其发布时引用的项目版本，当前配置与实测结果请参阅本仓库的[实测说明](docs/benchmarks.md)。
+
 ## 许可与致谢
 
 原创编排、原创提示词和文档采用MIT。模型、节点、第三方许可材料和媒体遵循各自上游条款。H3及Turbo模型仓库标注H3社区许可，包含地域和用途条件，使用前阅读完整原文。[MIT](LICENSE) · [第三方来源](THIRD_PARTY_NOTICES.md) · [H3许可](licenses/MiniMax-H3-LICENSE.txt)

@@ -29,6 +29,16 @@ Select a SaveVideo node and press Ctrl+M to enable or disable that output. For a
 
 [Installation](docs/installation.md) · [Usage](docs/usage.md) · [Measurements](docs/benchmarks.md) · [Download release](https://github.com/win520-1206/ComfyUI-H3-LowVRAM-Workflows/releases/tag/v1.1.0)
 
+## Coverage & Mentions
+
+| Date | Source | Mention |
+|---|---|---|
+| 2026-11-11 | [VFX DESK — VFX / AI / CG Daily No. 75](https://vfx-desk.com/daily/75) | Listed the four MiniMax H3 ComfyUI workflows and summarized the repository's reported 8GB VRAM configuration and generation results |
+| 2026-11-11 | [Fervor Creative AI — Creative AI Briefing](https://fervorcreativeai.com/briefings/2026-11-11-0512/) | Featured the four generation modes and reported low-VRAM runs in its “Open and local” section |
+| 2026-11-12 | [.neurocartel — AI video upscaling on your own GPU](https://specialinfluencers.com/en/blog/recavsr-comfyui-local-video-upscale) | Mentioned the project in an overview of local AI video workflows, citing Fervor's low-VRAM coverage |
+
+These articles reflect the project versions available when they were published. See the repository's [benchmark notes](docs/benchmarks.md) for the current configuration and measured results.
+
 ## Example and licensing
 
 [Download the AI-generated eight-step T2V sample](examples/ai-generated-t2v-8step.mp4)
